@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.baotruongtuan.RdpServer.payload.response.ResponseData;
 
 @ControllerAdvice
-public class GlobalHandlerException {
+public class GlobalExceptionHandler {
     private static final String MAX_ATTRIBUTE = "max";
     private static final String MIN_ATTRIBUTE = "min";
 

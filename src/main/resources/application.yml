@@ -20,3 +20,5 @@ server:
 jwt:
   signer_key: jCBbsOzUT0GjKLK2JiPpsn22tnS/UCGmz6WzqM2OmvYCXT9/PjiyFRVw15ky3rEn
   expiration-time: 86400
+user:
+  default-password: 123456

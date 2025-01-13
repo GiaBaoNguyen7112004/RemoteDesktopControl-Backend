@@ -29,6 +29,7 @@ public enum ErrorCode {
     NOT_JOIN(2102, "User have not joined this department", HttpStatus.BAD_REQUEST),
     DUPLICATE_DATA(2103, "Duplicate Data", HttpStatus.BAD_REQUEST),
     INVALID_DATA(2104, "Data is unacceptable", HttpStatus.BAD_REQUEST),
+    DEPARTMENT_HAS_STAFFS(2105, "Can not delete the department having staffss", HttpStatus.BAD_REQUEST),
     ;
 
     int code;

@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.baotruongtuan.RdpServer.payload.response.ResponseData;
-import com.baotruongtuan.RdpServer.service.imp.IAvatarService;
+import com.baotruongtuan.RdpServer.service.imp.AvatarService;
 import com.baotruongtuan.RdpServer.utils.FeedbackMessage;
 import com.baotruongtuan.RdpServer.utils.UrlMapping;
 
@@ -18,12 +18,12 @@ import lombok.experimental.FieldDefaults;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AvatarController {
-    IAvatarService iAvatarService;
+    AvatarService avatarService;
 
     @PostMapping(UrlMapping.SAVE_AVATAR)
     public ResponseEntity<ResponseData> saveAvatar(@RequestBody MultipartFile file, @PathVariable int userId) {
         ResponseData responseData = ResponseData.builder()
-                .data(iAvatarService.saveAvatar(userId, file))
+                .data(avatarService.saveAvatar(userId, file))
                 .message(FeedbackMessage.CREATE_SUCCESS)
                 .build();
         return ResponseEntity.ok().body(responseData);
@@ -31,7 +31,7 @@ public class AvatarController {
 
     @DeleteMapping(UrlMapping.REMOVE_AVATAR)
     public ResponseEntity<ResponseData> removeAvatar(@PathVariable int userId) {
-        iAvatarService.removeAvatar(userId);
+        avatarService.removeAvatar(userId);
         ResponseData responseData =
                 ResponseData.builder().message(FeedbackMessage.DELETE_SUCCESS).build();
         return ResponseEntity.ok().body(responseData);

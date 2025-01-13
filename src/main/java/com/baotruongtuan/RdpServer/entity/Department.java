@@ -28,7 +28,7 @@ public class Department {
     String code;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department", fetch = FetchType.EAGER)
     List<DepartmentDetail> departmentDetails;
 
     public void setCode() {

@@ -57,7 +57,7 @@ public class AppSocketHandler implements WebSocketHandler {
     JwtUtilHelper jwtUtilHelper;
     DomainExtractHelper domainExtractHelper;
     AccessRestrictionsRepository accessRestrictionsRepository;
-    Set<String> violations = new HashSet<>();
+//    Set<String> violations = new HashSet<>();
 
 
     @Override
@@ -427,15 +427,11 @@ public class AppSocketHandler implements WebSocketHandler {
     {
         try{
             String content = convertJsonToText(message, "content");
-            String processedContent;
+            String processedContent = domainExtractHelper.processedContent(content);
 
-            if(domainExtractHelper.isValidUrl(content))
-            {
-                processedContent = domainExtractHelper.extractDomain(content);
-            }
-            else processedContent = content;
+            log.info("Processed content: {}", processedContent);
 
-            if(!violations.contains(processedContent) &&
+            if(
                     accessRestrictionsRepository.existsAccessRestrictionByContent(processedContent))
             {
                 SessionEvent sessionEvent = SessionEvent.builder()
@@ -445,7 +441,7 @@ public class AppSocketHandler implements WebSocketHandler {
                         .content("You are not permitted to access  " + processedContent)
                         .build();
                 addEventForSessionLog(getSessionLog(session), sessionEvent);
-                violations.add(processedContent);
+
                 SessionEventDTO sessionEventDTO = sessionEventMapper.toSessionEventDTO(sessionEvent);
                 SocketMessage socketMessage =
                         SocketMessage.builder().type(MessageType.ERROR.getName()).data(sessionEventDTO).build();

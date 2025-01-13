@@ -1,9 +1,9 @@
 package com.baotruongtuan.RdpServer.service;
 
-import java.net.URI;
 import java.util.List;
 
 import com.baotruongtuan.RdpServer.repository.AccessRestrictionsRepository;
+import com.baotruongtuan.RdpServer.service.imp.AccessRestrictionService;
 import com.baotruongtuan.RdpServer.utils.DomainExtractHelper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,6 @@ import com.baotruongtuan.RdpServer.exception.AppException;
 import com.baotruongtuan.RdpServer.exception.ErrorCode;
 import com.baotruongtuan.RdpServer.mapper.AccessRestrictionMapper;
 import com.baotruongtuan.RdpServer.payload.request.AccessRestrictionCreationRequest;
-import com.baotruongtuan.RdpServer.service.imp.IAccessRestrictionService;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +22,7 @@ import lombok.experimental.FieldDefaults;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Service
-public class AccessRestrictionService implements IAccessRestrictionService {
+public class AccessRestrictionServiceImp implements AccessRestrictionService {
     AccessRestrictionMapper accessRestrictionMapper;
     AccessRestrictionsRepository accessRestrictionsRepository;
     DomainExtractHelper domainExtractHelper;
@@ -42,7 +41,8 @@ public class AccessRestrictionService implements IAccessRestrictionService {
             AccessRestrictionCreationRequest accessRestrictionCreationRequest) {
         String content = accessRestrictionCreationRequest.getContent();
         String processedContent = (domainExtractHelper.isValidUrl(content))
-                ? domainExtractHelper.extractDomain(content) : content;
+                ? domainExtractHelper.extractDomain(content).replace(" ", "").toLowerCase()
+                : content.replace(" ", "").toLowerCase();
 
         if (accessRestrictionsRepository.existsAccessRestrictionByContent(processedContent)) {
             throw new AppException(ErrorCode.DUPLICATE_DATA);
@@ -56,9 +56,13 @@ public class AccessRestrictionService implements IAccessRestrictionService {
     @PreAuthorize("hasRole('ADMIN')")
     @Override
     public void deleteAccessRestriction(String id) {
-        accessRestrictionsRepository.findById(id)
-                .ifPresentOrElse(accessRestrictionsRepository::delete, () -> {
-            throw new AppException(ErrorCode.NO_DATA_EXCEPTION);
-        });
+        accessRestrictionsRepository.deleteById(id);
     }
+
+    @Override
+    public boolean isExistingAccessRestriction(String content) {
+        return accessRestrictionsRepository.existsAccessRestrictionByContent(domainExtractHelper
+                .processedContent(content));
+    }
+
 }

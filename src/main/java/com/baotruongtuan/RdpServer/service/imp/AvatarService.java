@@ -4,7 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.baotruongtuan.RdpServer.dto.AvatarDTO;
 
-public interface IAvatarService {
+public interface AvatarService {
     AvatarDTO saveAvatar(int userId, MultipartFile file);
 
     void removeAvatar(int userId);

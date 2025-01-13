@@ -1,16 +1,13 @@
 package com.baotruongtuan.RdpServer.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.baotruongtuan.RdpServer.payload.request.AuthenticationRequest;
 import com.baotruongtuan.RdpServer.payload.request.IntrospectRequest;
 import com.baotruongtuan.RdpServer.payload.request.LogOutRequest;
 import com.baotruongtuan.RdpServer.payload.response.ResponseData;
-import com.baotruongtuan.RdpServer.service.imp.IAuthenticationService;
+import com.baotruongtuan.RdpServer.service.imp.AuthenticationService;
 import com.baotruongtuan.RdpServer.utils.FeedbackMessage;
 import com.baotruongtuan.RdpServer.utils.UrlMapping;
 
@@ -23,7 +20,7 @@ import lombok.experimental.FieldDefaults;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AuthenticationController {
-    IAuthenticationService authenticationServiceImp;
+    AuthenticationService authenticationServiceImp;
 
     @PostMapping(UrlMapping.LOGIN)
     public ResponseEntity<ResponseData> authenticate(@RequestBody AuthenticationRequest authenticationRequest) {

@@ -14,7 +14,7 @@ import com.baotruongtuan.RdpServer.exception.ErrorCode;
 import com.baotruongtuan.RdpServer.mapper.AvatarMapper;
 import com.baotruongtuan.RdpServer.repository.AvatarRepository;
 import com.baotruongtuan.RdpServer.repository.UserRepository;
-import com.baotruongtuan.RdpServer.service.imp.IAvatarService;
+import com.baotruongtuan.RdpServer.service.imp.AvatarService;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ import lombok.experimental.FieldDefaults;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Service
-public class AvatarService implements IAvatarService {
+public class AvatarServiceImp implements AvatarService {
     UserRepository userRepository;
     AvatarRepository avatarRepository;
     AvatarMapper avatarMapper;

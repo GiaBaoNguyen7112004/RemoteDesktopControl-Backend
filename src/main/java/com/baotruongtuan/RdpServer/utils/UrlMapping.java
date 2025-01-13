@@ -13,6 +13,7 @@ public class UrlMapping {
     public static final String DELETE_USER = "/user/{id}";
     public static final String JOIN_DEPARTMENT = "/user/join/{userId}/{departmentCode}";
     public static final String LEAVE_DEPARTMENT = "/user/leave/{userId}/{departmentId}";
+    public static final String RESET_PASSWORD = "/user/reset-password/{id}";
 
     // AUTHENTICATION API
     public static final String AUTHENTICATION = API + "/authentication";
@@ -25,6 +26,7 @@ public class UrlMapping {
     public static final String CREATE_DEPARTMENT = "/department";
     public static final String GET_ALL_DEPARTMENTS = "/all-departments";
     public static final String GET_MEMBERS_IN_DEPARTMENT = "/members-in-department/{departmentId}";
+    public static final String DELETE_DEPARTMENT = "/department/{departmentId}";
 
     // AVATAR API
     public static final String AVATARS = API + "/avatars";

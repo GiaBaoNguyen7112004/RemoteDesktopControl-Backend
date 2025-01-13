@@ -6,10 +6,11 @@ import com.baotruongtuan.RdpServer.payload.request.AuthenticationRequest;
 import com.baotruongtuan.RdpServer.payload.request.IntrospectRequest;
 import com.baotruongtuan.RdpServer.payload.request.LogOutRequest;
 
-public interface IAuthenticationService {
+public interface AuthenticationService {
     public AuthenticationDTO authenticate(AuthenticationRequest authenticationRequest);
 
     public IntrospectDTO introspect(IntrospectRequest introspectRequest);
 
     public boolean logOut(LogOutRequest logOutRequest);
+
 }

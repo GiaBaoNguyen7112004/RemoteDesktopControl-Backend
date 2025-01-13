@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.baotruongtuan.RdpServer.payload.request.UserCreationRequest;
 import com.baotruongtuan.RdpServer.payload.request.UserUpdatingRequest;
 import com.baotruongtuan.RdpServer.payload.response.ResponseData;
-import com.baotruongtuan.RdpServer.service.imp.IUserService;
+import com.baotruongtuan.RdpServer.service.imp.UserService;
 import com.baotruongtuan.RdpServer.utils.FeedbackMessage;
 import com.baotruongtuan.RdpServer.utils.UrlMapping;
 
@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserController {
-    IUserService userServiceImp;
+    UserService userServiceImp;
 
     @PostMapping(UrlMapping.CREATE_USER)
     public ResponseEntity<ResponseData> createUser(@RequestBody @Valid UserCreationRequest userCreationRequest) {
@@ -84,6 +84,14 @@ public class UserController {
         userServiceImp.leaveDepartment(userId, departmentId);
         ResponseData responseData =
                 ResponseData.builder().message(FeedbackMessage.LEAVE_SUCCESS).build();
+        return ResponseEntity.ok().body(responseData);
+    }
+
+    @PostMapping(UrlMapping.RESET_PASSWORD)
+    public ResponseEntity<ResponseData> resetPassword(@PathVariable int id) {
+        userServiceImp.resetPassword(id);
+        ResponseData responseData =
+                ResponseData.builder().message(FeedbackMessage.RESET_SUCCESS).build();
         return ResponseEntity.ok().body(responseData);
     }
 }

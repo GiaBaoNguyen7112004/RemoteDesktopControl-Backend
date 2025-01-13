@@ -3,8 +3,10 @@ package com.baotruongtuan.RdpServer.service;
 import java.time.Instant;
 import java.util.Date;
 
+import com.baotruongtuan.RdpServer.service.imp.AuthenticationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,7 +22,6 @@ import com.baotruongtuan.RdpServer.payload.request.IntrospectRequest;
 import com.baotruongtuan.RdpServer.payload.request.LogOutRequest;
 import com.baotruongtuan.RdpServer.repository.ExpiredTokenRepository;
 import com.baotruongtuan.RdpServer.repository.UserRepository;
-import com.baotruongtuan.RdpServer.service.imp.IAuthenticationService;
 import com.baotruongtuan.RdpServer.utils.JwtUtilHelper;
 
 import lombok.AccessLevel;
@@ -28,13 +29,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Service
-public class AuthenticationService implements IAuthenticationService {
-    private static final Logger log = LoggerFactory.getLogger(AuthenticationService.class);
-    UserRepository userRepository;
-    JwtUtilHelper jwtUtilHelper;
-    ExpiredTokenRepository expiredTokenRepository;
+public class AuthenticationServiceImp implements AuthenticationService {
+    private static final Logger log = LoggerFactory.getLogger(AuthenticationServiceImp.class);
+    final UserRepository userRepository;
+    final JwtUtilHelper jwtUtilHelper;
+    final ExpiredTokenRepository expiredTokenRepository;
 
     @Override
     public AuthenticationDTO authenticate(AuthenticationRequest authenticationRequest) {
@@ -60,7 +61,7 @@ public class AuthenticationService implements IAuthenticationService {
     public IntrospectDTO introspect(IntrospectRequest introspectRequest) {
         boolean isValid = true;
         try {
-            var jws = jwtUtilHelper.verifyToken(introspectRequest.getToken());
+            jwtUtilHelper.verifyToken(introspectRequest.getToken());
         } catch (Exception e) {
             isValid = false;
         }

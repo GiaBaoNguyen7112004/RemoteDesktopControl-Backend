@@ -4,6 +4,6 @@ import java.util.List;
 
 import com.baotruongtuan.RdpServer.dto.SessionLogDTO;
 
-public interface ISessionLogsService {
+public interface SessionLogsService {
     List<SessionLogDTO> getUserSessionLogs(int userId);
 }

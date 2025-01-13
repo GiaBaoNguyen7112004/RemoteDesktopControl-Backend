@@ -15,12 +15,12 @@ import org.springframework.stereotype.Component;
 import com.baotruongtuan.RdpServer.exception.AppException;
 import com.baotruongtuan.RdpServer.exception.ErrorCode;
 import com.baotruongtuan.RdpServer.payload.request.IntrospectRequest;
-import com.baotruongtuan.RdpServer.service.imp.IAuthenticationService;
+import com.baotruongtuan.RdpServer.service.imp.AuthenticationService;
 
 @Component
 public class CustomJwtDecoder implements JwtDecoder {
     @Autowired
-    private IAuthenticationService authenticationServiceImp;
+    private AuthenticationService authenticationServiceImp;
 
     private NimbusJwtDecoder nimbusJwtDecoder;
 

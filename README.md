@@ -18,6 +18,9 @@ This application enables an **admin** to manage and monitor multiple **staff** c
 - **WebSocket**: Real-time communication.
 - **MySQL**: Database storage.
 
+## Frontend repo: 
+- https://github.com/Dangtruong-DUT/Employee-Monitoring-Desktop-App-Electron.git
+
 ## Getting Started
 
 ### Prerequisites
